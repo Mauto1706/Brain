@@ -41,18 +41,18 @@ class threadTrafficSign(ThreadWithStop):
             self.recordSubscriber = messageHandlerSubscriber(self.queuesList, Record, "lastOnly", True)
 
     def send_command_signal(self, msgID, angle):
-        if angle != self.current_command:
-            self.current_command = angle
-            if self.debugging:
-                print("Sending command:", {"msgID": msgID, "angle": angle})
-            self.queuesList["Critical"].put(
-                {
-                    "Owner": "BienBao",
-                    "msgID": msgID,
-                    "msgType": "AngleCommand",
-                    "msgValue": angle,
-                }
-            )
+        # if angle != self.current_command:
+        #     self.current_command = angle
+        #     if self.debugging:
+        #         print("Sending command:", {"msgID": msgID, "angle": angle})
+        #     self.queuesList["Critical"].put(
+        #         {
+        #             "Owner": "BienBao",
+        #             "msgID": msgID,
+        #             "msgType": "AngleCommand",
+        #             "msgValue": angle,
+        #         }
+        #     )
 
     def detect_objects(self, frame):
         image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -118,5 +118,5 @@ class threadTrafficSign(ThreadWithStop):
         # self.cap.release()
         # cv2.destroyAllWindows()
 
-    def stop(self)
+    def stop(self):
         super(threadTrafficSign, self).stop()
