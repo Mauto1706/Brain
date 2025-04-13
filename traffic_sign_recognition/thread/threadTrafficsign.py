@@ -5,7 +5,11 @@ import numpy as np
 import cv2
 import time
 from tensorflow.lite.python.interpreter import Interpreter
-
+from src.utils.messages.allMessages import (
+    mainCamera,
+)
+from src.utils.messages.messageHandlerSender import messageHandlerSender
+from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 
 class threadBienBao(ThreadWithStop):
     def __init__(self, queueList, logger, debugging=False):
@@ -28,8 +32,13 @@ class threadBienBao(ThreadWithStop):
         self.width = self.input_details[0]['shape'][2]
         self.float_input = (self.input_details[0]['dtype'] == np.float32)
 
+        self.subcribe()
+
         with open(self.label_path, 'r') as f:
             self.labels = [line.strip() for line in f.readlines()]
+
+    def subcribe(self)
+            self.recordSubscriber = messageHandlerSubscriber(self.queuesList, Record, "lastOnly", True)
 
     def send_command_signal(self, msgID, angle):
         if angle != self.current_command:
