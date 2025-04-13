@@ -24,7 +24,7 @@ class threadTrafficSign(ThreadWithStop):
         self.label_path = "labelmap.txt"
         self.min_confidence = 0.5
         self.current_command = None
-        self.cap = cv2.VideoCapture("path_to_video.mp4")  # You can use 0 for live camera
+        #self.cap = cv2.VideoCapture("path_to_video.mp4")  # You can use 0 for live camera
 
         self.interpreter = Interpreter(model_path=self.model_path)
         self.interpreter.allocate_tensors()
