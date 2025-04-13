@@ -4,6 +4,8 @@ from src.templates.threadwithstop import ThreadWithStop
 import numpy as np
 import cv2
 import time
+import base64
+import threading
 from tensorflow.lite.python.interpreter import Interpreter
 from src.utils.messages.allMessages import (
     mainCamera,
@@ -38,7 +40,7 @@ class threadTrafficSign(ThreadWithStop):
             self.labels = [line.strip() for line in f.readlines()]
 
     def subcribe(self)
-            self.recordSubscriber = messageHandlerSubscriber(self.queuesList, Record, "lastOnly", True)
+            self.image = messageHandlerSubscriber(self.queuesList, mainCamera, "lastOnly", True)
 
     def send_command_signal(self, msgID, angle):
         # if angle != self.current_command:
@@ -91,13 +93,14 @@ class threadTrafficSign(ThreadWithStop):
         return distance, signal
 
     def run(self):
-        cv2.startWindowThread()
+        # cv2.startWindowThread()
         while self._running:
-            ret, frame = self.cap.read()
-            if not ret:
-                print("Failed to read frame")
-                break
 
+            # ret, frame = self.cap.read()
+            # if not ret:
+                # print("Failed to read frame")
+                # break
+            img_data = self.image.receive()
             distance_output, signal2 = self.detect_objects(frame)
             resized_image = cv2.resize(frame, (400, 400))
             cv2.imshow("BienBao Detector", resized_image)
