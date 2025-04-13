@@ -11,9 +11,9 @@ from src.utils.messages.allMessages import (
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 
-class threadBienBao(ThreadWithStop):
+class threadTrafficSign(ThreadWithStop):
     def __init__(self, queueList, logger, debugging=False):
-        super(threadBienBao, self).__init__()
+        super(threadTrafficSign, self).__init__()
         self.logger = logger
         self.debugging = debugging
         self.queuesList = queueList
@@ -115,7 +115,8 @@ class threadBienBao(ThreadWithStop):
             key = cv2.waitKey(1)
             if key & 0xFF == ord("q"):
                 break
+        # self.cap.release()
+        # cv2.destroyAllWindows()
 
-        self.cap.release()
-        cv2.destroyAllWindows()
-
+    def stop(self)
+        super(threadTrafficSign, self).stop()
