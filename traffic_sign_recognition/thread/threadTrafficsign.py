@@ -39,7 +39,7 @@ class threadTrafficSign(ThreadWithStop):
         with open(self.label_path, 'r') as f:
             self.labels = [line.strip() for line in f.readlines()]
 
-    def subcribe(self)
+    def subcribe(self):
             self.image = messageHandlerSubscriber(self.queuesList, mainCamera, "lastOnly", True)
 
     def send_command_signal(self, msgID, angle):
