@@ -35,14 +35,14 @@ class threadTrafficSign(ThreadWithStop):
         self.float_input = (self.input_details[0]['dtype'] == np.float32)
 
         self.subcribe()
-
+        self.sendSpeedMotor = messageHandleSender(self.queuesList, SpeedMotorFromObjectDetection)
         with open(self.label_path, 'r') as f:
             self.labels = [line.strip() for line in f.readlines()]
-
+        
     def subcribe(self):
             self.image = messageHandlerSubscriber(self.queuesList, mainCamera, "lastOnly", True)
 
-    def send_command_signal(self, msgID, angle):
+    #def send_command_signal(self, msgID, angle):
         # if angle != self.current_command:
         #     self.current_command = angle
         #     if self.debugging:
@@ -101,6 +101,8 @@ class threadTrafficSign(ThreadWithStop):
                 # print("Failed to read frame")
                 # break
             img_data = self.image.receive()
+            img_array = np.frombuffer(img_data, dtype=np.uint8)
+            frame = cv2.imdecode(img_array, cv2.IMREAD_COLOR)           
             distance_output, signal2 = self.detect_objects(frame)
             resized_image = cv2.resize(frame, (400, 400))
             cv2.imshow("BienBao Detector", resized_image)
