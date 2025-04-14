@@ -9,6 +9,7 @@ import threading
 from tensorflow.lite.python.interpreter import Interpreter
 from src.utils.messages.allMessages import (
     mainCamera,
+    SpeedMotorFromObjectDetection
 )
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
