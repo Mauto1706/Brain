@@ -104,18 +104,18 @@ class threadTrafficSign(ThreadWithStop):
             img_array = np.frombuffer(img_data, dtype=np.uint8)
             frame = cv2.imdecode(img_array, cv2.IMREAD_COLOR)           
             distance_output, signal2 = self.detect_objects(frame)
-            resized_image = cv2.resize(frame, (400, 400))
-            cv2.imshow("BienBao Detector", resized_image)
+            #resized_image = cv2.resize(frame, (400, 400))
+            #cv2.imshow("BienBao Detector", resized_image)
 
             if signal2 == "none":
-                self.send_command_signal(1, 10)
+                self.sendSpeedMotor(10)
             elif signal2 == 8.0 and distance_output < 20:
-                self.send_command_signal(1, 0)
+                 self.sendSpeedMotor(0)
                 time.sleep(5)
-                self.send_command_signal(1, 10)
+                 self.sendSpeedMotor(10)
                 time.sleep(2)
             elif signal2 == 0.0 and distance_output < -30:
-                self.send_command_signal(1, 0)
+                self.sendSpeedMotor(0)
 
             key = cv2.waitKey(1)
             if key & 0xFF == ord("q"):
