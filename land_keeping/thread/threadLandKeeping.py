@@ -203,35 +203,36 @@ class ThreadLandKeeping(ThreadWithStop):
         """Chạy thread và xử lý các khung hình từ video capture."""
         while self._running:
             img_bytes = self.image.receive()
-            img_array = np.frombuffer(img_bytes, dtype=np.uint8)
-            frame = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
-        #   _, frame = picam2.read()
-            canny_image = detect_edges(frame)
-            cropped_canny = region_of_interest(canny_image)
-            lines  = detect_line_segments(cropped_canny)
-            try:
-                averaged_lines = average_slope_intercept(frame, lines)
-                line_image = display_lines(frame, averaged_lines)
-                steering_angle = get_steering_angle(frame, averaged_lines)
-                heading_image = display_heading_line(line_image,steering_angle)
-                #combo_image = cv2.addWeighted(frame, 0.8, heading_image, 1, 1)
-                steering_angle = steering_angle - 90
-                steering_angles.append(int(steering_angle * 0.8))
-                steering_angles_1.append(steering_angle)
-                old_lines = averaged_lines
-                #resized_image = cv2.resize(combo_image, (400, 400))  
-                #cv2.imshow('result', resized_image)
-            except:
-                if old_lines is not None:
-                    line_image = display_lines(frame, old_lines)
-                    combo_image = cv2.addWeighted(frame, 0.3, heading_image, 1, 1)
-                    steering_angle = 90;
-                    cv2.imshow('result', resized_image)
+            while img_bytes is not None:
+                img_array = np.frombuffer(img_bytes, dtype=np.uint8)
+                frame = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
+            #   _, frame = picam2.read()
+                canny_image = detect_edges(frame)
+                cropped_canny = region_of_interest(canny_image)
+                lines  = detect_line_segments(cropped_canny)
+                try:
+                    averaged_lines = average_slope_intercept(frame, lines)
+                    line_image = display_lines(frame, averaged_lines)
+                    steering_angle = get_steering_angle(frame, averaged_lines)
+                    heading_image = display_heading_line(line_image,steering_angle)
+                    #combo_image = cv2.addWeighted(frame, 0.8, heading_image, 1, 1)
+                    steering_angle = steering_angle - 90
+                    steering_angles.append(int(steering_angle * 0.8))
+                    steering_angles_1.append(steering_angle)
+                    old_lines = averaged_lines
+                    #resized_image = cv2.resize(combo_image, (400, 400))  
+                    #cv2.imshow('result', resized_image)
+                except:
+                    if old_lines is not None:
+                        line_image = display_lines(frame, old_lines)
+                        combo_image = cv2.addWeighted(frame, 0.3, heading_image, 1, 1)
+                        steering_angle = 90;
+                      
+            send_commands_from_queue() # Sử dụng ID 2 cho góc lái 
+            time.sleep(0.5)
+            # if cv2.waitKey(1) & 0xFF == ord('q'):
+            #     break
         
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
-        send_commands_from_queue() # Sử dụng ID 2 cho góc lái 
-        time.sleep(0.5)
 
     def stop(self):
         """Dừng thread và đóng cửa sổ OpenCV."""
