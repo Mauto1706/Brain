@@ -118,9 +118,9 @@ class threadTrafficSign(ThreadWithStop):
             elif signal2 == 0.0 and distance_output < -30:
                 self.sendSpeedMotor(0)
 
-            key = cv2.waitKey(1)
-            if key & 0xFF == ord("q"):
-                break
+            #key = cv2.waitKey(1)
+            #if key & 0xFF == ord("q"):
+                #break
         # self.cap.release()
         # cv2.destroyAllWindows()
 
