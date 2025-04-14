@@ -82,7 +82,8 @@ class threadTrafficSign(ThreadWithStop):
                 xmin = int(max(1, boxes[i][1] * imW))
                 ymax = int(min(imH, boxes[i][2] * imH))
                 xmax = int(min(imW, boxes[i][3] * imW))
-
+                
+                object_name = labels[int(classes[i])]
                 label = self.labels[int(classes[i])]
                 distance = int((-0.4412) * (xmax - xmin) + 63.9706)
                 cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 0, 255), 2)
@@ -96,27 +97,27 @@ class threadTrafficSign(ThreadWithStop):
     def run(self):
         # cv2.startWindowThread()
         while self._running:
-
             # ret, frame = self.cap.read()
             # if not ret:
                 # print("Failed to read frame")
                 # break
             img_data = self.image.receive()
-            img_array = np.frombuffer(img_data, dtype=np.uint8)
-            frame = cv2.imdecode(img_array, cv2.IMREAD_COLOR)           
-            distance_output, signal2 = self.detect_objects(frame)
-            #resized_image = cv2.resize(frame, (400, 400))
-            #cv2.imshow("BienBao Detector", resized_image)
-
-            if signal2 == "none":
-                self.sendSpeedMotor(10)
-            elif signal2 == 8.0 and distance_output < 20:
-                 self.sendSpeedMotor(0)
-                time.sleep(5)
-                 self.sendSpeedMotor(10)
-                time.sleep(2)
-            elif signal2 == 0.0 and distance_output < -30:
-                self.sendSpeedMotor(0)
+            while img_data is not None:
+                img_array = np.frombuffer(img_data, dtype=np.uint8)
+                frame = cv2.imdecode(img_array, cv2.IMREAD_COLOR)           
+                distance_output, signal2 = self.detect_objects(frame)
+                #resized_image = cv2.resize(frame, (400, 400))
+                #cv2.imshow("BienBao Detector", resized_image)
+        
+                if signal2 == "none":
+                    self.sendSpeedMotor(10)
+                elif signal2 == 8.0 and distance_output < 20:
+                     self.sendSpeedMotor(0)
+                    time.sleep(5)
+                     self.sendSpeedMotor(10)
+                    time.sleep(2)
+                elif signal2 == 0.0 and distance_output < -30:
+                    self.sendSpeedMotor(0)
 
             #key = cv2.waitKey(1)
             #if key & 0xFF == ord("q"):
