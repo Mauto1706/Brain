@@ -86,11 +86,10 @@ class threadTrafficSign(ThreadWithStop):
                 object_name = labels[int(classes[i])]
                 label = self.labels[int(classes[i])]
                 distance = int((-0.4412) * (xmax - xmin) + 63.9706)
-                cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 0, 255), 2)
-                cv2.putText(frame, f'{label}, Distance:{distance}', (xmin - 150, ymin - 7),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (208, 224, 64), 2)
+                #cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 0, 255), 2)
+                #cv2.putText(frame, f'{label}, Distance:{distance}', (xmin - 150, ymin - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (208, 224, 64), 2)
                 signal = classes[i]
-                break
+               
 
         return distance, signal
 
@@ -110,14 +109,14 @@ class threadTrafficSign(ThreadWithStop):
                 #cv2.imshow("BienBao Detector", resized_image)
         
                 if signal2 == "none":
-                    self.sendSpeedMotor(10)
+                    self.sendSpeedMotor.send(10)
                 elif signal2 == 8.0 and distance_output < 20:
                      self.sendSpeedMotor(0)
                     time.sleep(5)
-                     self.sendSpeedMotor(10)
+                     self.sendSpeedMotor.send(10)
                     time.sleep(2)
                 elif signal2 == 0.0 and distance_output < -30:
-                    self.sendSpeedMotor(0)
+                    self.sendSpeedMotor.send(0)
 
             #key = cv2.waitKey(1)
             #if key & 0xFF == ord("q"):
