@@ -189,12 +189,12 @@ class ThreadLandKeeping(ThreadWithStop):
                 steering_angle = self.steering_angles[0]
                 if steering_angle > 20:
                     #self.send_command(2, 22)
-                    self.sendSteeringAngle(22)
+                    self.sendSteeringAngle.send(22)
                 elif steering_angle < -25:
                     #self.send_command(2, -25)
-                    self.sendSteeringAngle(-25)
+                    self.sendSteeringAngle.send(-25)
                 else:
-                    self.sendSteeringAngle(int(steering_angle))
+                    self.sendSteeringAngle.send(int(steering_angle))
                 self.steering_angles.popleft()
             time.sleep(0.01)
 
