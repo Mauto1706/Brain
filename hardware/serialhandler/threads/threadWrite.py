@@ -42,7 +42,8 @@ from src.utils.messages.allMessages import (
     ToggleImuData,
     ToggleInstant,
     ToggleResourceMonitor,
-    SteeringAngleFromLandKeeping
+    SteeringAngleFromLandKeeping,
+    SpeedMotorFromObjectDetection
 )
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
@@ -90,7 +91,7 @@ class threadWrite(ThreadWithStop):
         self.klSubscriber = messageHandlerSubscriber(self.queuesList, Klem, "lastOnly", True)
         self.controlSubscriber = messageHandlerSubscriber(self.queuesList, Control, "lastOnly", True)
         self.steerMotorSubscriber = messageHandlerSubscriber(self.queuesList, ["SteerMotor", "SteeringAngleFromLandKeeping"], "lastOnly", True)
-        self.speedMotorSubscriber = messageHandlerSubscriber(self.queuesList, SpeedMotor, "lastOnly", True)
+        self.speedMotorSubscriber = messageHandlerSubscriber(self.queuesList, ["SpeedMotor", "SpeedMotorFromObjectDetection"], "lastOnly", True)
         self.brakeSubscriber = messageHandlerSubscriber(self.queuesList, Brake, "lastOnly", True)
         self.instantSubscriber = messageHandlerSubscriber(self.queuesList, ToggleInstant, "lastOnly", True)
         self.batterySubscriber = messageHandlerSubscriber(self.queuesList, ToggleBatteryLvl, "lastOnly", True)
