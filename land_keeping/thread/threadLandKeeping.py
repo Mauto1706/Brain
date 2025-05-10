@@ -3,7 +3,6 @@ import numpy as np
 import threading
 import time
 import math
-import matplotlib.pyplot as plt
 import base64
 from collections import deque
 from src.templates.threadwithstop import ThreadWithStop  # Import lớp ThreadWithStop
