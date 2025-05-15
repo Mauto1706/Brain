@@ -256,6 +256,6 @@ class SteeringAngleFromLandKeeping(enum):
 ######################    From processTrafficSign  ###########################
 class SpeedMotorFromObjectDetection(enum):
     Queue = "Critical"
-    Owner = "threadTrafficSign"
+    Owner = "threadTrafficsign"
     msgID = 1
     msgType = "str"
