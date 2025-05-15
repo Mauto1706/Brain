@@ -5,22 +5,22 @@ if __name__ == "__main__":
     sys.path.insert(0, "../..")
 
 from src.templates.workerprocess import WorkerProcess
-from src.bien_bao.threads.threadBienBao import threadBienBao
+from src.bien_bao.threads.threadTrafficsign import threadTrafficsign
 
 class processBienBao(WorkerProcess):
     def __init__(self, queueList, logger, debugging=False):
         self.logger = logger
         self.debugging = debugging
-        super(processBienBao, self).__init__(queueList)
+        super(processTrafficsign, self).__init__(queueList)
 
     def run(self):
-        super(processBienBao, self).run()
+        super(processTrafficsign, self).run()
 
     def _init_threads(self):
-        bienBaoThread = threadBienBao(
+        threadTrafficsign = threadTrafficsign(
             self.queuesList, self.logger, self.debugging
         )
-        self.threads.append(bienBaoThread)
+        self.threads.append(threadTrafficsign)
 
 
 # ======== Only runs when you call this script directly ========
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     }
 
     logging = logging.getLogger()
-    process = processBienBao(queueList, logging, debugging=True)
+    process = processTrafficsign(queueList, logging, debugging=True)
     process.daemon = True
     process.start()
 
