@@ -14,9 +14,9 @@ from src.utils.messages.allMessages import (
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 
-class threadTrafficSign(ThreadWithStop):
+class threadTrafficsign(ThreadWithStop):
     def __init__(self, queueList, logger, debugging=False):
-        super(threadTrafficSign, self).__init__()
+        super(threadTrafficsign, self).__init__()
         self.logger = logger
         self.debugging = debugging
         self.queuesList = queueList
@@ -125,4 +125,4 @@ class threadTrafficSign(ThreadWithStop):
         # cv2.destroyAllWindows()
 
     def stop(self):
-        super(threadTrafficSign, self).stop()
+        super(threadTrafficsign, self).stop()
