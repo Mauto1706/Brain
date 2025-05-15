@@ -7,7 +7,7 @@ if __name__ == "__main__":
 from src.templates.workerprocess import WorkerProcess
 from src.bien_bao.threads.threadTrafficsign import threadTrafficsign
 
-class processBienBao(WorkerProcess):
+class processTrafficsign(WorkerProcess):
     def __init__(self, queueList, logger, debugging=False):
         self.logger = logger
         self.debugging = debugging
