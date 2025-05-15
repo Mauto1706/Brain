@@ -1,0 +1,50 @@
+item {
+  id: 1
+  name: 'Obstacles'
+}
+
+item {
+  id: 2
+  name: 'car2'
+}
+
+item {
+  id: 3
+  name: '9'
+}
+
+item {
+  id: 4
+  name: 'Parking-Sign'
+}
+
+item {
+  id: 5
+  name: 'green'
+}
+
+item {
+  id: 6
+  name: 'red'
+}
+
+item {
+  id: 7
+  name: 'yellow'
+}
+
+item {
+  id: 8
+  name: 'person'
+}
+
+item {
+  id: 9
+  name: 'stop'
+}
+
+item {
+  id: 10
+  name: 'straight'
+}
+
