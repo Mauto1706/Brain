@@ -1,0 +1,10 @@
+Obstacles
+car2
+9
+Parking-Sign
+green
+red
+yellow
+person
+stop
+straight
